@@ -22,6 +22,18 @@ namespace LoginApp
         {
             SqlConnection sqlcon = new SqlConnection(@"Data Source=COSICPC;Initial Catalog=Login;Integrated Security=True");
 
+            var command = new SqlCommand("Select * from tbl_Login Where username = @P1 and password = @P2", sqlcon);
+            command.Parameters.Add("P1", SqlDbType.NVarChar).Value = textBox1.Text.Trim();
+            command.Parameters.Add("P2", SqlDbType.NVarChar).Value = textBox2.Text.Trim();
+            // sa rezultatima
+            var reader = command.ExecuteReader();
+            // bez rezultata
+            command.ExecuteNonQuery();
+            while(reader.Read())
+            {
+                //reader[0], reader[1] - rezultati
+            }
+
             string upit = "Select * from tbl_Login Where username = '" + textBox1.Text.Trim() + "' and password = '" + textBox2.Text.Trim() + "'";
             SqlDataAdapter sda = new SqlDataAdapter(upit, sqlcon);
             DataTable dtbl = new DataTable();
